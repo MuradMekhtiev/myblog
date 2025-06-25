@@ -10,6 +10,12 @@ from modelcluster.tags import ClusterTaggableManager
 from django.utils.text import slugify
 
 
+class HomePage(Page):
+    subpage_types = ['home.BlogIndexPage']
+    template = "home/home_page.html"
+    content_panels = Page.content_panels
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         'BlogPage',
@@ -36,6 +42,7 @@ class Category(models.Model):
 class BlogPage(Page):
     parent_page_types = ['home.BlogIndexPage']
     subpage_types = []
+    template = "home/blog_page.html"
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250, blank=True)
     body = RichTextField(blank=True)
@@ -66,9 +73,10 @@ class BlogPage(Page):
 
 
 class BlogIndexPage(Page):
+    parent_page_types = ['home.HomePage']
     subpage_types = ['home.BlogPage']
+    template = "home/blog_index_page.html"
     intro = RichTextField(blank=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
     ]

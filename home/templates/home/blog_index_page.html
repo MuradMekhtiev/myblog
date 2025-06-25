@@ -2,29 +2,13 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-  <h1 class="mb-4">{{ page.title }}</h1>
-  <p class="text-muted">{{ page.intro|richtext }}</p>
-  <hr>
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.intro|richtext }}</p>
 
-  <div class="row">
+  <h2>Posts:</h2>
+  <ul>
     {% for post in posts %}
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 shadow-sm">
-          {% if post.main_image %}
-            <img src="{{ post.main_image.url }}" class="card-img-top" alt="{{ post.main_image.title }}">
-          {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">{{ post.intro|truncatewords:20 }}</p>
-            <a href="{{ post.url }}" class="btn btn-primary">Подробнее</a>
-          </div>
-          <div class="card-footer text-muted">
-            {{ post.date }}
-          </div>
-        </div>
-      </div>
-    {% empty %}
-      <p>Пока постов нет.</p>
+      <li><a href="{{ post.url }}">{{ post.title }}</a> — {{ post.date }}</li>
     {% endfor %}
-  </div>
+  </ul>
 {% endblock %}
