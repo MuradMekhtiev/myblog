@@ -9,6 +9,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from django.utils.text import slugify
 from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 
 class HomePage(Page):
@@ -24,7 +25,7 @@ class BlogPageTag(TaggedItemBase):
         on_delete=models.CASCADE
     )
 
-
+@register_snippet
 class Category(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=80, unique=True, blank=True)
