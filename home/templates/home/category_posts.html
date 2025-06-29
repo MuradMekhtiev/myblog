@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}{{ category.name }} — My Blog{% endblock %}
+
+{% block content %}
+  <h1>Posts in category: {{ category.name }}</h1>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <p>{{ post.date }} — {{ post.intro }}</p>
+      </li>
+    {% empty %}
+      <p>No posts found in this category.</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
