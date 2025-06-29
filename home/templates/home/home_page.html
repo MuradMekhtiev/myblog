@@ -3,3 +3,6 @@
   <h1>Welcome to the Home Page</h1>
   <p>Use the admin to add content.</p>
 {% endblock %}
+{% for child in page.get_children.live %}
+  <h2><a href="{{ child.url }}">{{ child.title }}</a></h2>
+{% endfor %}

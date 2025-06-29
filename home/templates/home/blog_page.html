@@ -1,9 +1,25 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
   <h1>{{ page.title }}</h1>
-  <p><strong>{{ page.date }}</strong></p>
-  <p>{{ page.intro }}</p>
+  <p><em>{{ page.date }}</em></p>
+
+  {% if page.main_image %}
+    {% image page.main_image fill-800x400 %}
+  {% endif %}
+
   <div>{{ page.body|richtext }}</div>
+
+  {% if page.category %}
+    <p><strong>Category:</strong> {{ page.category.name }}</p>
+  {% endif %}
+
+  {% if page.tags.all %}
+    <p><strong>Tags:</strong>
+      {% for tag in page.tags.all %}
+        {{ tag }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
 {% endblock %}

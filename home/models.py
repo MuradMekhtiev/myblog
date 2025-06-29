@@ -8,6 +8,7 @@ from taggit.models import TaggedItemBase
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from django.utils.text import slugify
+from wagtail.search import index
 
 
 class HomePage(Page):
@@ -69,6 +70,10 @@ class BlogPage(Page):
         FieldPanel('main_image'),
         FieldPanel('category'),
         FieldPanel('tags'),
+    ]
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
     ]
 
 
