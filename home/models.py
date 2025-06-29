@@ -89,5 +89,14 @@ class BlogIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['posts'] = BlogPage.objects.live().descendant_of(self).order_by('-date')
+
+        category_slug = request.GET.get("category")
+        posts = BlogPage.objects.live().descendant_of(self).order_by("-date")
+
+        if category_slug:
+            posts = posts.filter(category__slug=category_slug)
+
+        context["posts"] = posts
+        context["selected_category"] = category_slug
+        context["categories"] = Category.objects.all()
         return context
